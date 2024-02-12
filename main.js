@@ -3,27 +3,99 @@
 *******************/
 
 /*
- * Here we add the squares to the canvas dynamically.
- * You can mostly leave this section alone!
- * But if you want to change how wide the canvas is,
- * there are just two steps:
- * 
- * 1. Change the `gridWidth` value below.
- * 2. Change the `grid-template-rows` and
- * `grid-template-columns` to match.
- *
- * To make the second one happen, the number to change
- * is the first argument to `repeat`, currently set at 10.
- */
-const gridWidth = 10;
+* Here we add the squares to the canvas dynamically.
+* You can mostly leave this section alone!
+* But if you want to change how wide the canvas is,
+* there are just two steps:
+* 
+* 1. Change the `gridWidth` value below.
+* 2. Change the `grid-template-rows` and
+* `grid-template-columns` to match.
+*
+* To make the second one happen, the number to change
+* is the first argument to `repeat`, currently set at 10.
+*/
+let mouseOn = false
+document.addEventListener("mousedown",()=>{
+  mouseOn = true
+})
+document.addEventListener("mouseup",()=>{
+  mouseOn = false
+})
+let storageColor= "color-5"
+let newColor=""
+let numberOfColors="5"
+let coloring = document.querySelectorAll(".palette-color")
+let gridWidth = 10;
 let count = 0;
-while (count <= gridWidth * gridWidth) {
-  const canvas = document.querySelector('.canvas');
-  const div = document.createElement('div');
-  div.className = 'square color-5';
-  canvas.appendChild(div);
-  count++;
+gridSize =document.querySelector("#gridSize")
+changeGrid()
+changeColor()
+console.log('hw')
+paint()
+
+gridSize.addEventListener("change",()=>{
+  document.querySelector(".canvas").style.gridTemplateRows = `repeat(${gridSize.value},1fr)`
+  document.querySelector(".canvas").style.gridTemplateColumns = `repeat(${gridSize.value},1fr)`
+  gridWidth = gridSize.value
+  changeGrid()
+  paint()
+})
+
+
+
+function changeGrid(){
+  while (count <= gridWidth * gridWidth) {
+    const canvas = document.querySelector('.canvas');
+    const div = document.createElement('div');
+    div.className = 'square color-5';
+    canvas.appendChild(div);
+    count++;
+  }
 }
+
+
+
+function changeColor (){
+  for(let color of coloring){
+    color.addEventListener("click",(event)=>{
+      let paintBrush = document.querySelector(".current-brush")
+      newColor = event.target.id
+      paintBrush.classList.replace(storageColor,newColor)
+      storageColor = newColor
+    })
+  }
+}
+
+function paint(){
+  for(let individual of document.querySelectorAll(".square")){
+    individual.addEventListener("mouseover",(event)=>{
+      if(mouseOn === true){
+      event.target.classList.replace(event.target.classList[1],storageColor)
+      }
+    })
+  }
+}
+
+// document.querySelector(".makeNewColor").addEventListener("click",(event)=>{
+//   event.preventDefault()
+//   document.querySelector(".colorAddition").classList.remove("invisible")
+// })
+
+// document.querySelector("#finalizeColor").addEventListener("click",(event)=>{
+//   numberOfColors ++
+//   event.preventDefault()
+//   let red= document.querySelector("#red").value
+//   let green= document.querySelector("#green").value
+//   let blue= document.querySelector("#blue").value
+//   let nextColor = document.createElement("div")
+//   nextColor.classList.add("palette-color")
+//   nextColor.classList.add(`color-${numberOfColors}`)
+//   nextColor.style.backgroundColor=`rgb(${red,green,blue})`
+//   let pallet =document.querySelector(".palette")
+//   pallet.appendChild(nextColor)
+// })
+
 
 // You probably should NOT do these in the order below.
 // That is, you probably should NOT do all the queries,

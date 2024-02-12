@@ -1,0 +1,71 @@
+.app {
+  display: flex;
+  height: 500px;
+}
+
+.headings {
+  display: flex;
+}
+
+.brush-selection {
+  height: 70px;
+  display: flex;
+}
+
+.paint {
+  height: 250px;
+  display: flex;
+}
+
+.palette {
+  display: flex;
+  margin-left: -30px;
+}
+
+.brush {
+  display: flex;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.current-brush, .palette-color {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+}
+
+.canvas {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  height: 300px;
+  width: 300px;
+  border: 1px solid black;
+}
+
+.square {
+  transition: 0.5s;
+}
+
+.color-1 {
+
+}
+
+.color-2 {
+
+}
+
+.color-3 {
+
+}
+
+.color-4 {
+
+}
+
+.color-5 {
+
+}
